@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Add New Tool - Tool Sharing Platform</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+	<div class="bg-white p-8 rounded-lg shadow-md w-96">
+		<h2 class="text-2xl font-bold text-center mb-6">Add New Tool</h2>
+		<form id="addToolForm" class="space-y-4">
+			<input type="text" id="toolTitle" placeholder="Title *" class="w-full p-2 border rounded-md" required>
+			<textarea id="toolDescription" placeholder="Description" class="w-full p-2 border rounded-md"></textarea>
+			<input type="url" id="toolWebsite" placeholder="Website URL" class="w-full p-2 border rounded-md">
+			<input type="url" id="toolSourceCode" placeholder="Source Code URL" class="w-full p-2 border rounded-md">
+			<input type="text" id="toolPlatforms" placeholder="Platforms *" class="w-full p-2 border rounded-md" required>
+			<button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md">
+				Add Tool
+			</button>
+		</form>
+	</div>
+
+	<script src="js/add-tool.js"></script>
+</body>
+
+</html>
