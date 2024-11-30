@@ -1,41 +1,103 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // DOM Element Selections
   const toolsGrid = document.getElementById('toolsGrid')
   const pagination = document.getElementById('pagination')
   const searchInput = document.getElementById('searchInput')
   const searchButton = document.getElementById('searchButton')
   const navButtons = document.getElementById('navButtons')
+  const mobileNavButtons = document.getElementById('mobileNavButtons')
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle')
+  const mobileMenu = document.getElementById('mobileMenu')
   const toolActionModal = document.getElementById('toolActionModal')
 
+  // Modal Action Buttons
+  const editToolBtn = document.getElementById('editToolBtn')
+  const deleteToolBtn = document.getElementById('deleteToolBtn')
+  const publishToolBtn = document.getElementById('publishToolBtn')
+  const closeActionModalBtn = document.getElementById('closeActionModal')
+
+  // State Variables
   let currentPage = 1
   let currentSearch = ''
+  let selectedToolId = null
 
-  // Check authentication status
+  // Mobile Menu Toggle
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden')
+  })
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (
+      !mobileMenu.contains(event.target) &&
+      !mobileMenuToggle.contains(event.target)
+    ) {
+      mobileMenu.classList.add('hidden')
+    }
+  })
+
+  // Authentication Status Check
   function checkAuthStatus() {
     const user = JSON.parse(localStorage.getItem('user'))
     const token = localStorage.getItem('token')
 
-    // Update nav buttons based on auth status
-    if (user && token) {
-      navButtons.innerHTML = `
-        <a href="add-tool.html" class="bg-green-500 text-white px-4 py-2 rounded-md">Add Tool</a>
-        <button id="logoutBtn" class="bg-red-500 text-white px-4 py-2 rounded-md">Logout</button>
+    const desktopAuthButtons =
+      user && token
+        ? `
+        <a href="add-tool.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">
+          Add Tool
+        </a>
+        <button id="logoutBtn" class="px-4 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition duration-300">
+          Logout
+        </button>
+      `
+        : `
+        <a href="login.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">
+          Login
+        </a>
+        <a href="signup.html" class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition duration-300">
+          Sign Up
+        </a>
       `
 
-      // Add logout functionality
-      document.getElementById('logoutBtn')?.addEventListener('click', () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        window.location.href = 'login.html'
-      })
-    } else {
-      navButtons.innerHTML = `
-        <a href="login.html" class="bg-blue-500 text-white px-4 py-2 rounded-md">Login</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-md">Sign Up</a>
+    const mobileAuthButtons =
+      user && token
+        ? `
+        <a href="add-tool.html" class="text-gray-700 hover:text-blue-600">
+          Add Tool
+        </a>
+        <button id="mobileLogoutBtn" class="text-red-500 hover:text-red-600">
+          Logout
+        </button>
       `
-    }
+        : `
+        <a href="login.html" class="text-gray-700 hover:text-blue-600">
+          Login
+        </a>
+        <a href="signup.html" class="text-blue-500 hover:text-blue-600">
+          Sign Up
+        </a>
+      `
+
+    // Update desktop and mobile nav buttons
+    navButtons.innerHTML = desktopAuthButtons
+    mobileNavButtons.innerHTML = mobileAuthButtons
+
+    // Add logout functionality for both desktop and mobile
+    document.getElementById('logoutBtn')?.addEventListener('click', logout)
+    document
+      .getElementById('mobileLogoutBtn')
+      ?.addEventListener('click', logout)
   }
 
-  // Fetch tools
+  // Logout Function
+  function logout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = 'login.html'
+  }
+
+  // Fetch Tools
   async function fetchTools(page = 1, search = '') {
     try {
       const token = localStorage.getItem('token')
@@ -55,12 +117,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (error) {
       console.error('Error fetching tools:', error)
-      toolsGrid.innerHTML = `<p class="text-red-500">Failed to load tools</p>`
+      toolsGrid.innerHTML = `<p class="text-red-500">Failed to load tools. ${error.message}</p>`
     }
   }
 
-  // Render tools
+  // Render Tools
   function renderTools(tools) {
+    if (tools.length === 0) {
+      toolsGrid.innerHTML =
+        '<p class="text-center text-gray-500">No tools found.</p>'
+      return
+    }
+
     toolsGrid.innerHTML = tools
       .map(
         (tool) => `
@@ -110,42 +178,40 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
 
-  // Check if current user can perform actions on tool
+  // Check Tool Action Permissions
   function checkToolActionPermission(tool) {
     const user = JSON.parse(localStorage.getItem('user'))
     return user && (user.id === tool.author._id || user.role === 'admin')
   }
 
-  // Show tool action modal
+  // Show Tool Action Modal
   function showToolActionModal(toolId) {
+    selectedToolId = toolId
     toolActionModal.classList.remove('hidden')
     toolActionModal.classList.add('flex')
-
-    // Action button event listeners
-    document.getElementById('editToolBtn').onclick = () => editTool(toolId)
-    document.getElementById('deleteToolBtn').onclick = () => deleteTool(toolId)
-    document.getElementById('publishToolBtn').onclick = () =>
-      publishTool(toolId)
-    document.getElementById('closeActionModal').onclick = closeToolActionModal
   }
 
-  // Close tool action modal
+  // Close Tool Action Modal
   function closeToolActionModal() {
     toolActionModal.classList.remove('flex')
     toolActionModal.classList.add('hidden')
+    selectedToolId = null
   }
 
-  // Edit tool
-  function editTool(toolId) {
-    // Implement tool edit logic
+  // Edit Tool
+  function editTool() {
+    if (!selectedToolId) return
+    window.location.href = `edit-tool.html?id=${selectedToolId}`
     closeToolActionModal()
   }
 
-  // Delete tool
-  async function deleteTool(toolId) {
+  // Delete Tool
+  async function deleteTool() {
+    if (!selectedToolId) return
+
     try {
       const token = localStorage.getItem('token')
-      const response = await fetch(`/api/tools/${toolId}`, {
+      const response = await fetch(`/api/tools/${selectedToolId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -165,11 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Publish tool
-  async function publishTool(toolId) {
+  // Publish Tool
+  async function publishTool() {
+    if (!selectedToolId) return
+
     try {
       const token = localStorage.getItem('token')
-      const response = await fetch(`/api/tools/${toolId}`, {
+      const response = await fetch(`/api/tools/${selectedToolId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -192,13 +260,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Render pagination
+  // Render Pagination
   function renderPagination(currentPage, totalPages) {
     pagination.innerHTML = ''
     for (let i = 1; i <= totalPages; i++) {
       const pageBtn = document.createElement('button')
       pageBtn.textContent = i
-      pageBtn.classList.add('px-4','py-2','rounded-md',currentPage === i ? ('bg-blue-500', 'text-white') : 'bg-gray-200')
+      pageBtn.classList.add(
+        'px-4',
+        'py-2',
+        'rounded-md',
+        currentPage === i ? ('bg-blue-500', 'text-white') : 'bg-gray-200'
+      )
       pageBtn.addEventListener('click', () => {
         currentPage = i
         fetchTools(i, currentSearch)
@@ -207,14 +280,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Search functionality
+  // Search Functionality
   searchButton.addEventListener('click', () => {
     currentSearch = searchInput.value
     currentPage = 1
     fetchTools(currentPage, currentSearch)
   })
 
-  // Initial load
+  // Modal Button Event Listeners
+  editToolBtn.addEventListener('click', editTool)
+  deleteToolBtn.addEventListener('click', deleteTool)
+  publishToolBtn.addEventListener('click', publishTool)
+  closeActionModalBtn.addEventListener('click', closeToolActionModal)
+
+  // Initial Page Load
   checkAuthStatus()
   fetchTools()
 })

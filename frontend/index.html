@@ -4,53 +4,75 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Public Tool Sharing Platform</title>
+	<title>Tool Sharing Platform</title>
 	<link href="./css/styles.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100">
+	<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+		<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+			<div class="flex items-center">
+				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">
+					Tool Sharing Platform
+				</a>
+			</div>
 
-	<div class="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+			<div class="hidden md:flex items-center space-x-6">
+				<div class="flex space-x-4">
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Tools</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Categories</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Community</a>
+				</div>
+			</div>
 
-	<!-- Navbar -->
-	<nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
-		<div class="text-2xl font-bold">Tool Sharing Platform</div>
-		<div id="navButtons" class="space-x-4"></div>
+			<div class="flex items-center space-x-4">
+				<div id="navButtons" class="hidden md:flex space-x-4">
+					<!-- Navigation buttons will be dynamically inserted here -->
+				</div>
+
+				<button id="mobileMenuToggle" class="md:hidden text-gray-700 focus:outline-none">
+					<i class="fas fa-bars text-xl"></i>
+				</button>
+			</div>
+		</div>
+
+		<!-- Mobile Dropdown Menu -->
+		<div id="mobileMenu" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-md hidden">
+			<div class="flex flex-col p-4 space-y-3">
+				<div class="flex flex-col space-y-3 border-b pb-3">
+					<a href="#" class="text-gray-700 hover:text-blue-600">Tools</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600">Community</a>
+				</div>
+				<div id="mobileNavButtons" class="flex flex-col space-y-3"><!-- Mobile navigation buttons will be dynamically inserted here --></div>
+			</div>
+		</div>
 	</nav>
 
-	<!-- Search and Filter Section -->
-	<div class="container mx-auto mt-6 px-4">
-		<div class="flex space-x-4 mb-6">
-			<input type="text" id="searchInput" placeholder="Search for keyword" class="flex-grow p-2 border rounded-md">
-			<button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Search</button>
+	<div class="pt-20 container mx-auto px-4">
+		<div class="flex mb-6 mt-4">
+			<input type="text" id="searchInput" placeholder="Search tools" class="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+			<button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">Search</button>
 		</div>
+		<div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 	</div>
 
-	<!-- Tools Grid -->
-	<div class="container mx-auto px-4">
-		<div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6 z-auto"><!-- Tools will be dynamically populated here -->
-		</div>
-	</div>
+	<div id="pagination" class="container mx-auto mt-6 flex justify-center space-x-4"></div>
 
-	<!-- Pagination -->
-	<div class="container mx-auto mt-6 flex justify-center space-x-4" id="pagination">
-		<!-- Pagination buttons will be dynamically added --></div>
-
-	<!-- Tool Action Modal (Hidden by default) -->
 	<div id="toolActionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-		<div class="bg-white p-6 rounded-lg shadow-xl">
-			<h2 class="text-xl font-bold mb-4">Tool Actions</h2>
+		<div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+			<h2 class="text-xl font-semibold mb-4 text-gray-800">Tool Actions</h2>
 			<div class="space-y-4">
-				<button id="editToolBtn" class="w-full bg-blue-500 text-white py-2 rounded-md">Edit</button>
-				<button id="deleteToolBtn" class="w-full bg-red-500 text-white py-2 rounded-md">Delete</button>
-				<button id="publishToolBtn" class="w-full bg-green-500 text-white py-2 rounded-md">Publish</button>
-				<button id="closeActionModal" class="w-full bg-gray-300 text-black py-2 rounded-md">Cancel</button>
+				<button id="editToolBtn" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"> Edit Tool</button>
+				<button id="deleteToolBtn" class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"> Delete Tool</button>
+				<button id="publishToolBtn" class="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300">Publish Tool</button>
+				<button id="closeActionModal" class="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition duration-300">Cancel</button>
 			</div>
 		</div>
 	</div>
 
-	<script src="js/index.js"></script>
+	<script src="./js/index.js"></script>
 </body>
 
 </html>
