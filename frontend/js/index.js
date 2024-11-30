@@ -9,12 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuToggle = document.getElementById('mobileMenuToggle')
   const mobileMenu = document.getElementById('mobileMenu')
   const toolActionModal = document.getElementById('toolActionModal')
+  const currentYear = document.querySelector('#currentYear')
 
   // Modal Action Buttons
   const editToolBtn = document.getElementById('editToolBtn')
   const deleteToolBtn = document.getElementById('deleteToolBtn')
   const publishToolBtn = document.getElementById('publishToolBtn')
   const closeActionModalBtn = document.getElementById('closeActionModal')
+
+  // Current Year
+  const year = new Date().getFullYear()
 
   // State Variables
   let currentPage = 1
@@ -236,8 +240,11 @@ document.addEventListener('DOMContentLoaded', () => {
   deleteToolBtn.addEventListener('click', deleteTool)
   publishToolBtn.addEventListener('click', publishTool)
   closeActionModalBtn.addEventListener('click', closeToolActionModal)
+  currentYear.insertAdjacentText('afterbegin', year)
 
   // Initial Page Load
   checkAuthStatus()
   fetchTools()
 })
+
+

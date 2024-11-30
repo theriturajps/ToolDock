@@ -4,10 +4,44 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tool Sharing Platform</title>
+	<title>ToolDock - Your Open Source Tool Sharing Platform</title>
+
+	<!-- SEO Meta Tags -->
+	<meta name="description" content="ToolDock is an open-source platform to search, add, edit, and share tools effortlessly. Join now to explore and collaborate with the global developer community.">
+	<meta name="keywords" content="ToolDock, open source tools, share tools, search tools, developer tools, add tools, edit tools, delete tools, tool sharing platform">
+	<meta name="author" content="ToolDock Team">
+	<meta name="robots" content="index, follow">
+	<meta name="language" content="English">
+	<meta name="revisit-after" content="7 days">
+	<meta name="distribution" content="global">
+
+	<!-- Social Media Open Graph Tags -->
+	<meta property="og:title" content="ToolDock - Open Source Tool Sharing Platform">
+	<meta property="og:description" content="Explore, share, and collaborate on tools with ToolDock. The ultimate platform for open-source tool enthusiasts.">
+	<meta property="og:image" content="https://yourwebsite.com/assets/og-image.png">
+	<meta property="og:url" content="https://yourwebsite.com">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="ToolDock">
+
+	<!-- Twitter Card Tags -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="ToolDock - Open Source Tool Sharing Platform">
+	<meta name="twitter:description" content="Join ToolDock to find, add, and share open-source tools. Simplify tool sharing and collaboration today.">
+	<meta name="twitter:image" content="https://yourwebsite.com/assets/twitter-card-image.png">
+	<meta name="twitter:site" content="@YourTwitterHandle">
+
+	<!-- Favicons -->
+	<link rel="icon" href="https://yourwebsite.com/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="https://yourwebsite.com/apple-touch-icon.png">
+
+	<!-- Stylesheets -->
 	<link href="./css/styles.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+	<!-- Additional Meta Tags for Compatibility -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
+
 
 <body class="bg-gray-100">
 	<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
@@ -15,7 +49,7 @@
 
 			<!-- Logo -->
 			<div class="flex items-center">
-				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">Tool Sharing Platform</a>
+				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">ToolDock</a>
 			</div>
 
 			<!-- Menu -->
@@ -59,8 +93,22 @@
 		<div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 	</div>
 
-	<div id="pagination" class="container mx-auto mt-6 flex justify-center space-x-4"></div>
+	<div id="pagination" class="container mx-auto mt-6 mb-6 flex justify-center space-x-4"></div>
 
+
+	<footer class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
+		<div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+			<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© <span id="currentYear"></span> <a href="/" class="hover:underline">ToolDock</a> &diamondsuit; All Rights Reserved.</span>
+			<ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+				<li><a href="/" class="hover:underline me-4 md:me-6">Home</a></li>
+				<li><a href="./login.html" class="hover:underline me-4 md:me-6">Login</a></li>
+				<li><a href="https://github.com/theriturajps/ToolDock/blob/main/CONTRIBUTING.md" class="hover:underline me-4 md:me-6">Contribution</a></li>
+				<li><a href="https://github.com/theriturajps" class="hover:underline">Github</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Edit Model -->
 	<div id="toolActionModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
 		<div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
 			<h2 class="text-xl font-semibold mb-4 text-gray-800">Tool Actions</h2>
