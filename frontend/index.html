@@ -11,13 +11,14 @@
 
 <body class="bg-gray-100">
 	<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-		<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+		<div class="container mx-auto px-4 py-2 flex items-center justify-between">
+
+			<!-- Logo -->
 			<div class="flex items-center">
-				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">
-					Tool Sharing Platform
-				</a>
+				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">Tool Sharing Platform</a>
 			</div>
 
+			<!-- Menu -->
 			<div class="hidden md:flex items-center space-x-6">
 				<div class="flex space-x-4">
 					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Tools</a>
@@ -26,15 +27,12 @@
 				</div>
 			</div>
 
+			<!-- Menu Icon -->
 			<div class="flex items-center space-x-4">
-				<div id="navButtons" class="hidden md:flex space-x-4">
-					<!-- Navigation buttons will be dynamically inserted here -->
-				</div>
-
-				<button id="mobileMenuToggle" class="md:hidden text-gray-700 focus:outline-none">
-					<i class="fas fa-bars text-xl"></i>
-				</button>
+				<div id="navButtons" class="hidden md:flex space-x-4"></div>
+				<button id="mobileMenuToggle" class="md:hidden text-gray-700 focus:outline-none"><i class="fas fa-bars text-xl"></i></button>
 			</div>
+
 		</div>
 
 		<!-- Mobile Dropdown Menu -->
@@ -45,19 +43,19 @@
 					<a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
 					<a href="#" class="text-gray-700 hover:text-blue-600">Community</a>
 				</div>
-				<div id="mobileNavButtons" class="flex flex-col space-y-3">
-					<!-- Mobile navigation buttons will be dynamically inserted here --></div>
+				<div id="mobileNavButtons" class="flex flex-col space-y-3"></div>
 			</div>
 		</div>
+
 	</nav>
 
 	<div class="pt-20 container mx-auto px-4">
+		<!-- Search Bar -->
 		<div class="flex mb-6 mt-4">
-			<input type="text" id="searchInput" placeholder="Search tools"
-				class="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-			<button id="searchButton"
-				class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">Search</button>
+			<input type="text" id="searchInput" placeholder="Search tools" class="flex-grow px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+			<button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">Search</button>
 		</div>
+		<!-- Tools Render -->
 		<div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
 	</div>
 
@@ -67,17 +65,10 @@
 		<div class="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
 			<h2 class="text-xl font-semibold mb-4 text-gray-800">Tool Actions</h2>
 			<div class="space-y-4">
-				<button id="editToolBtn"
-					class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"> Edit
-					Tool</button>
-				<button id="deleteToolBtn"
-					class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"> Delete
-					Tool</button>
-				<button id="publishToolBtn"
-					class="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300">Publish
-					Tool</button>
-				<button id="closeActionModal"
-					class="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition duration-300">Cancel</button>
+				<button id="editToolBtn" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300"> Edit Tool</button>
+				<button id="deleteToolBtn" class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300"> Delete Tool</button>
+				<button id="publishToolBtn" class="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition duration-300">Publish Tool</button>
+				<button id="closeActionModal" class="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300 transition duration-300">Cancel</button>
 			</div>
 		</div>
 	</div>

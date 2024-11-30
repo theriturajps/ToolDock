@@ -43,41 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const desktopAuthButtons =
       user && token
-        ? `
-        <a href="add-tool.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">
-          Add Tool
-        </a>
-        <button id="logoutBtn" class="px-4 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition duration-300">
-          Logout
-        </button>
-      `
-        : `
-        <a href="login.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">
-          Login
-        </a>
-        <a href="signup.html" class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition duration-300">
-          Sign Up
-        </a>
-      `
+        ? `<a href="add-tool.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">Add Tool</a>
+           <button id="logoutBtn" class="px-4 py-2 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition duration-300">Logout</button>`
+        : `<a href="login.html" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">Login</a>
+           <a href="signup.html" class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition duration-300">Sign Up</a>`
 
     const mobileAuthButtons =
       user && token
-        ? `
-        <a href="add-tool.html" class="text-gray-700 hover:text-blue-600">
-          Add Tool
-        </a>
-        <button id="mobileLogoutBtn" class="text-red-500 hover:text-red-600">
-          Logout
-        </button>
-      `
-        : `
-        <a href="login.html" class="text-gray-700 hover:text-blue-600">
-          Login
-        </a>
-        <a href="signup.html" class="text-blue-500 hover:text-blue-600">
-          Sign Up
-        </a>
-      `
+        ? `<a href="add-tool.html" class="text-gray-700 hover:text-blue-600">Add Tool</a>
+           <button id="mobileLogoutBtn" class="text-red-500 hover:text-red-600">Logout</button>`
+        : `<a href="login.html" class="text-gray-700 hover:text-blue-600">Login</a> 
+           <a href="signup.html" class="text-blue-500 hover:text-blue-600">Sign Up</a>`
 
     // Update desktop and mobile nav buttons
     navButtons.innerHTML = desktopAuthButtons
@@ -85,9 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add logout functionality for both desktop and mobile
     document.getElementById('logoutBtn')?.addEventListener('click', logout)
-    document
-      .getElementById('mobileLogoutBtn')
-      ?.addEventListener('click', logout)
+    document.getElementById('mobileLogoutBtn')?.addEventListener('click', logout)
   }
 
   // Logout Function
@@ -124,48 +98,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Render Tools
   function renderTools(tools) {
     if (tools.length === 0) {
-      toolsGrid.innerHTML =
-        '<p class="text-center text-gray-500">No tools found.</p>'
+      toolsGrid.innerHTML ='<p class="text-center text-gray-500">No tools found.</p>'
       return
     }
 
     toolsGrid.innerHTML = tools
       .map(
-        (tool) => `
-      <div class="bg-white rounded-lg shadow-md p-3 relative mb-auto">
-        <h3 class="text-xl font-bold mb-2">${tool.title}</h3>
-        <p class="text-gray-600 mb-4">${
-          tool.description || 'No description'
-        }</p>
-        <div class="mb-2">
-          <strong>Platforms:</strong> ${tool.platforms}
-        </div>
-        <div class="text-sm text-gray-500 mb-4">
-          Added by: ${tool.author.username}
-        </div>
-        <div class="flex space-x-2">
-          ${
-            tool.website
-              ? `<a href="${tool.website}" target="_blank" class="bg-blue-500 text-white px-2 py-1 rounded-md text-sm">Website</a>`
-              : ''
-          }
-          ${
-            tool.sourceCode
-              ? `<a href="${tool.sourceCode}" target="_blank" class="bg-green-500 text-white px-2 py-1 rounded-md text-sm">Source Code</a>`
-              : ''
-          }
-        </div>
-        ${
-          checkToolActionPermission(tool)
-            ? `
-          <button class="absolute top-2 right-2 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center tool-actions-btn" data-tool-id="${tool._id}">
-            <i class="fas fa-ellipsis-v"></i>
-          </button>
-        `
-            : ''
-        }
-      </div>
-    `
+        (tool) => `<div class="bg-white rounded-lg shadow-md p-3 relative mb-auto">
+            <h3 class="text-base font-bold mb-2">${tool.title}</h3>
+            <p class="text-gray-600 mb-2 text-sm">${tool.description || 'No description'}</p>
+            <div class="mb-2 text-base"><strong>Platforms:</strong> ${tool.platforms}</div>
+            <div class="text-sm text-gray-500 mb-2">Added by: ${tool.author.username}</div>
+            <div class="flex space-x-2">
+              ${ tool.website ? `<a href="${tool.website}" target="_blank" class="bg-blue-500 text-white px-2 py-1 rounded-md text-sm">Website</a>` : '' }
+              ${ tool.sourceCode ? `<a href="${tool.sourceCode}" target="_blank" class="bg-green-500 text-white px-2 py-1 rounded-md text-sm">Source Code</a>` : '' }
+            </div>
+            ${ checkToolActionPermission(tool) ? `<button class="absolute top-2 right-2 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center tool-actions-btn" data-tool-id="${tool._id}"><i class="fas fa-ellipsis-v"></i></button>` : ''}
+          </div>`
       )
       .join('')
 
@@ -266,12 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 1; i <= totalPages; i++) {
       const pageBtn = document.createElement('button')
       pageBtn.textContent = i
-      pageBtn.classList.add(
-        'px-4',
-        'py-2',
-        'rounded-md',
-        currentPage === i ? ('bg-blue-500', 'text-white') : 'bg-gray-200'
-      )
+      pageBtn.classList.add('px-4', 'py-2', 'rounded-md', currentPage === i ? ('bg-blue-500', 'text-black') : 'bg-gray-200')
       pageBtn.addEventListener('click', () => {
         currentPage = i
         fetchTools(i, currentSearch)
