@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toolsGrid.innerHTML = tools
       .map(
         (tool) => `
-      <div class="bg-white rounded-lg shadow-md p-6 relative">
+      <div class="bg-white rounded-lg shadow-md p-3 relative mb-auto">
         <h3 class="text-xl font-bold mb-2">${tool.title}</h3>
         <p class="text-gray-600 mb-4">${
           tool.description || 'No description'
