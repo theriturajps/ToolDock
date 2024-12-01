@@ -4,12 +4,75 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sign Up - Tool Sharing Platform</title>
+	<title>ToolDock - Sign Up</title>
+	<!-- SEO Meta Tags -->
+	<meta name="description"
+		content="ToolDock is an open-source platform to search, add, edit, and share tools packages, repos effortlessly. Join now to explore and collaborate with the global developer community.">
+	<meta name="keywords"
+		content="ToolDock, open source tools, share tools, search tools, developer tools, add tools, edit tools, delete tools, tool sharing platform">
+	<meta name="author" content="ToolDock">
+	<meta name="language" content="English">
+	<meta property="og:title" content="ToolDock - Sign Up">
+	<meta property="og:url" content="https://tooldock.vercel.app/">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="ToolDock">
+	<meta name="twitter:site" content="@riturajps">
+	<!-- Favicons -->
+	<link rel="icon" href="./assets/tooldock.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" href="./assets/tooldock.svg">
+	<!-- Stylesheets -->
 	<link href="./css/styles.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<!-- Additional Meta Tags for Compatibility -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-	<div class="bg-white p-8 rounded-lg shadow-md w-96">
+
+	<nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+		<div class="container mx-auto px-4 py-2 flex items-center justify-between">
+			<!-- Logo -->
+			<div class="flex items-center">
+				<img class="size-8 mr-1" src="./assets/tooldock.svg" alt="ToolDock">
+				<a href="/" class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition duration-300">ToolDock</a>
+			</div>
+			<!-- Menu -->
+			<div class="hidden md:flex items-center space-x-6">
+				<div class="flex space-x-4">
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Tools</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Categories</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600 transition duration-300">Community</a>
+				</div>
+			</div>
+			<!-- Menu Icon -->
+			<div class="flex items-center space-x-4">
+				<div class="hidden md:flex space-x-4">
+					<a href="/"
+						class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-300">Home</a>
+					<a href="./login.html"
+						class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition duration-300">Login</a>
+				</div>
+				<button id="mobileMenuToggle" class="md:hidden text-gray-700 focus:outline-none"><i
+						class="fas fa-bars text-xl"></i></button>
+			</div>
+		</div>
+		<!-- Mobile Dropdown Menu -->
+		<div id="mobileMenu" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-md hidden">
+			<div class="flex flex-col p-4 space-y-3">
+				<div class="flex flex-col space-y-3 border-b pb-3">
+					<a href="#" class="text-gray-700 hover:text-blue-600">Tools</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600">Categories</a>
+					<a href="#" class="text-gray-700 hover:text-blue-600">Community</a>
+				</div>
+				<div class="flex flex-col space-y-3">
+					<a href="./login.html"
+						class="px-4 py-2 bg-blue-500 text-white text-sm rounded-md hover:bg-blue-600 transition duration-300">Login</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<div class="bg-white p-8 rounded-lg border border-gray-600 shadow-md w-96">
 		<h2 class="text-2xl font-bold text-center mb-6">Sign Up</h2>
 		<form id="signupForm" class="space-y-4">
 			<input type="text" id="username" placeholder="Username" class="w-full p-2 border rounded-md" required>
@@ -25,11 +88,28 @@
 		</form>
 		<p class="text-center mt-4">
 			Already have an account?
-			<a href="login.html" class="text-blue-500">Login</a>
+			<a href="./login.html" class="text-blue-500">Login</a>
 		</p>
 	</div>
 
 	<script src="js/signup.js"></script>
+	<script>
+		const mobileMenuToggle = document.getElementById('mobileMenuToggle')
+		// Mobile Menu Toggle
+		mobileMenuToggle.addEventListener('click', () => {
+			mobileMenu.classList.toggle('hidden')
+		})
+
+		// Close mobile menu when clicking outside
+		document.addEventListener('click', (event) => {
+			if (
+				!mobileMenu.contains(event.target) &&
+				!mobileMenuToggle.contains(event.target)
+			) {
+				mobileMenu.classList.add('hidden')
+			}
+		})
+	</script>
 </body>
 
 </html>
