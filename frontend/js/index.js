@@ -216,16 +216,68 @@ document.addEventListener('DOMContentLoaded', () => {
   // Render Pagination
   function renderPagination(currentPage, totalPages) {
     pagination.innerHTML = ''
-    for (let i = 1; i <= totalPages; i++) {
-      const pageBtn = document.createElement('button')
-      pageBtn.textContent = i
-      pageBtn.classList.add('px-4', 'py-2', 'rounded-md', currentPage === i ? ('bg-blue-500', 'text-black') : 'bg-gray-200')
-      pageBtn.addEventListener('click', () => {
-        currentPage = i
-        fetchTools(i, currentSearch)
+    
+    // Reset styling and apply contained layout
+    pagination.classList.add('flex', 'justify-center', 'items-center', 'space-x-2', 'my-4', 'w-auto', 'mx-auto')
+
+    // Previous button
+    if (currentPage > 1) {
+      const prevBtn = document.createElement('button')
+      prevBtn.innerHTML = '&larr;'
+      prevBtn.classList.add(
+        'px-3', 'py-1', 'rounded-md', 
+        'text-gray-600', 'hover:bg-gray-100', 
+        'hover:text-gray-800', 
+        'transition', 'duration-300',
+        'border', 'border-gray-300'
+      )
+      prevBtn.setAttribute('aria-label', 'Previous page')
+      prevBtn.addEventListener('click', () => {
+        currentPage--
+        fetchTools(currentPage, currentSearch)
       })
-      pagination.appendChild(pageBtn)
+      pagination.appendChild(prevBtn)
     }
+
+    // Current page indicator
+    const currentBtn = document.createElement('button')
+    currentBtn.textContent = currentPage
+    currentBtn.classList.add(
+      'px-4', 'py-1', 
+      'rounded-md', 
+      'bg-blue-500', 'text-white', 
+      'font-semibold',
+      'shadow-sm'
+    )
+    currentBtn.setAttribute('aria-current', 'page')
+    pagination.appendChild(currentBtn)
+
+    // Next button
+    if (currentPage < totalPages) {
+      const nextBtn = document.createElement('button')
+      nextBtn.innerHTML = '&rarr;'
+      nextBtn.classList.add(
+        'px-3', 'py-1', 'rounded-md', 
+        'text-gray-600', 'hover:bg-gray-100', 
+        'hover:text-gray-800', 
+        'transition', 'duration-300',
+        'border', 'border-gray-300'
+      )
+      nextBtn.setAttribute('aria-label', 'Next page')
+      nextBtn.addEventListener('click', () => {
+        currentPage++
+        fetchTools(currentPage, currentSearch)
+      })
+      pagination.appendChild(nextBtn)
+    }
+
+    // Total pages indicator (small and subtle)
+    const totalPagesInfo = document.createElement('span')
+    totalPagesInfo.textContent = `of ${totalPages}`
+    totalPagesInfo.classList.add(
+      'text-sm', 'text-gray-500', 'ml-2'
+    )
+    pagination.appendChild(totalPagesInfo)
   }
 
   // Search Functionality
